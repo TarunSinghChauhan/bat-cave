@@ -3,7 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     const swarmHost = document.getElementById('bat-swarm-host');
     const pages = document.querySelectorAll('.page');
-    const modal = document.getElementById('tactical-modal');
+
+    // Create Modal if missing in HTML (The Batman HTML has tactical-modal removed or changed to app-modal in some iterations, let's create a robust one)
+    let modal = document.getElementById('app-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'app-modal';
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-glass">
+                <div class="modal-header">
+                    <h3 id="modal-title">SYSTEM ALERT</h3>
+                    <div class="scan-line"></div>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-body">Encryption logic processing...</p>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal()">ACKNOWLEDGE</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
 
@@ -11,31 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function createSplashSwarm() {
         if (!splash) return;
 
-        for (let i = 0; i < 40; i++) {
-            setTimeout(() => {
-                const x = Math.random() * window.innerWidth;
-                const y = Math.random() * window.innerHeight;
-                spawnBlackBats(x, y, 1);
-            }, i * 40);
-        }
+        // Initial silence, then swarm
+        setTimeout(() => {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    spawnBlackBats(x, y, 1);
+                }, i * 30);
+            }
+        }, 500);
 
         setTimeout(() => {
             splash.classList.add('hidden');
             setTimeout(() => splash.remove(), 1000);
-        }, 2800);
+        }, 3200);
     }
     createSplashSwarm();
 
-    // 3. Black Bat Spawn Engine
+    // 3. Black Bat Spawn Engine (Aggressive 2022 Style)
     function spawnBlackBats(x, y, count = 10) {
         for (let i = 0; i < count; i++) {
             const bat = document.createElement('div');
             bat.className = 'bat-particle anim-bat';
 
-            // Random direction and intensity (Black color inherited from SVG fill in CSS)
-            const tx = (Math.random() - 0.5) * 600;
-            const ty = (Math.random() - 0.5) * 600 - 100;
-            const tr = (Math.random() - 0.5) * 1080;
+            const tx = (Math.random() - 0.5) * 800; // Wider spread
+            const ty = (Math.random() - 0.5) * 800 - 150;
+            const tr = (Math.random() - 0.5) * 1440; // More rotation
 
             bat.style.setProperty('--tx', `${tx}px`);
             bat.style.setProperty('--ty', `${ty}px`);
@@ -49,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. Tactical Navigation Controller
+    // 4. Navigation Controller
     function navigate(pageId) {
         if (pageId === 'add') {
-            showTacticalModal('INTEL UPLOAD', 'Unauthorized access to Sector 7. Evidence upload requires Wayne Enterprises decryption keys.');
+            showModal('SYSTEM ERROR', 'UNAUTHORIZED ACCESS. Vengeance protocol requires physical keycard to upload evidence.');
             return;
         }
 
@@ -70,34 +93,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Global Tactical Click Handler
+    // 5. Global Click Listener
     document.addEventListener('click', (e) => {
-        const trigger = e.target.closest('.nav-item, .nav-btn, .action-trigger, .hex-border, .tactical-btn');
+        const trigger = e.target.closest('.nav-item, .nav-btn, .action-trigger, .story-circle, .red-btn');
         if (!trigger) return;
 
-        // Visual Swarm Feedback (BLACK BATS)
-        spawnBlackBats(e.clientX, e.clientY, 6);
+        // Visual Feedback
+        spawnBlackBats(e.clientX, e.clientY, 8);
 
         // Routing
         if (trigger.dataset.page) {
             navigate(trigger.dataset.page);
         }
 
-        // Logic for specific triggers
+        // Specific Button Logic
         if (trigger.classList.contains('like-btn')) {
-            const icon = trigger.querySelector('i');
-            const card = trigger.closest('.intel-card');
-            const metrics = card.querySelector('.metrics');
-            let val = parseFloat(metrics.innerText);
+            const heart = trigger.querySelector('i');
+            const metrics = trigger.closest('.intel-card').querySelector('.metrics');
+            let count = parseInt(metrics.innerText.replace(/,/g, ''));
 
-            if (icon.classList.contains('far')) {
-                icon.className = 'fas fa-heart liked';
-                metrics.innerText = (val + 0.1).toFixed(1) + 'K SCANNED';
-                trigger.style.transform = 'scale(1.4)';
+            if (heart.classList.contains('far')) {
+                heart.className = 'fas fa-heart';
+                heart.style.color = '#e61919';
+                metrics.innerText = (count + 1).toLocaleString() + ' SCANNED';
+                trigger.style.transform = 'scale(1.5)';
                 setTimeout(() => trigger.style.transform = '', 150);
             } else {
-                icon.className = 'far fa-heart';
-                metrics.innerText = (val - 0.1).toFixed(1) + 'K SCANNED';
+                heart.className = 'far fa-heart';
+                heart.style.color = '';
+                metrics.innerText = (count - 1).toLocaleString() + ' SCANNED';
             }
         }
 
@@ -105,30 +129,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const icon = trigger.querySelector('i');
             icon.classList.toggle('far');
             icon.classList.toggle('fas');
+            if (icon.classList.contains('fas')) icon.style.color = '#e61919';
+            else icon.style.color = '';
         }
 
         if (trigger.classList.contains('comment-btn')) {
-            showTacticalModal('SECURE COMMS', 'Channel encrypted. Oracle is currently off-grid. Leave a message after the pulse.');
+            showModal('COMMS CHANNEL', 'Line secure. Oracle is monitoring the signal. Data transmission restricted.');
+        }
+
+        if (trigger.classList.contains('red-btn')) {
+            showModal('IDENTITY SECURED', 'User data is locked behind Wayne Terminals. Access denied.');
         }
     });
 
     // 6. UI Utils
-    window.showTacticalModal = (title, body) => {
-        modalTitle.innerText = title;
-        modalBody.innerText = body;
+    window.showModal = (title, body) => {
+        if (modalTitle) modalTitle.innerText = title;
+        if (modalBody) modalBody.innerText = body;
         modal.classList.add('visible');
     };
 
-    window.closeTacticalModal = () => {
+    window.closeModal = () => {
         modal.classList.remove('visible');
     };
 
     window.viewStory = (user) => {
-        showTacticalModal('INTEL UPDATE', `Accessing live thermal stream from ${user}'s current position... [ENCRYPTED]`);
+        showModal('LIVE FEED', `Establishing connection to Sector 4... Target: ${user}. Signal weak, monitoring...`);
     };
 
-    // Outside click close
-    modal.onclick = (e) => { if (e.target === modal) closeTacticalModal(); };
+    // Close on background click
+    modal.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-    console.log('--- BAT-CAVE OS v4.0 ONLINE ---');
+    console.log('--- VENGEANCE OS ONLINE ---');
 });
