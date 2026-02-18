@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAT-CAVE | Gotham's Private Network</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-bats" id="splash-bats-container"></div>
+        <div class="splash-content">
+            <div class="bat-logo-large">
+                <svg viewBox="0 0 512 512" width="120" height="120">
+                    <path fill="#FFD700"
+                        d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
+                </svg>
+            </div>
+            <h1 class="logo-text">BAT-CAVE</h1>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg viewBox="0 0 512 512" width="30" height="30" style="margin-right: 8px;">
+                        <path fill="#FFD700"
+                            d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
+                    </svg>
+                    <span>BAT-CAVE</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Scan for Citizens...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="nav-icons">
+                    <i class="fas fa-home-alt nav-btn active" title="Home"></i>
+                    <i class="fas fa-paper-plane nav-btn" title="Messages"></i>
+                    <i class="fas fa-plus-square nav-btn" id="create-post-btn" title="Post Image"></i>
+                    <i class="fas fa-bell nav-btn" title="Notifications"></i>
+                    <div class="user-profile-icon nav-btn" title="Profile"></div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <!-- Stories Section -->
+            <div class="stories-container">
+                <!-- Circular story items -->
+                <div class="story-item clickable">
+                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=bruce" alt="Bruce"></div>
+                    <span>Bruce</span>
+                </div>
+                <div class="story-item clickable">
+                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=diana" alt="Diana"></div>
+                    <span>Diana</span>
+                </div>
+                <div class="story-item clickable">
+                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=clark" alt="Clark"></div>
+                    <span>Clark</span>
+                </div>
+                <div class="story-item clickable">
+                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=selina" alt="Selina"></div>
+                    <span>Selina</span>
+                </div>
+                <div class="story-item clickable">
+                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=alfred" alt="Alfred"></div>
+                    <span>Alfred</span>
+                </div>
+            </div>
+
+            <!-- Feed Section -->
+            <div class="feed" id="main-feed">
+                <!-- Posts will be dynamically generated or hardcoded for now -->
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <img src="https://i.pravatar.cc/150?u=bruce" alt="User">
+                            <span class="username">Bruce Wayne <i class="fas fa-shield-alt verified"></i></span>
+                        </div>
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000"
+                            alt="Gotham">
+                    </div>
+                    <div class="post-actions">
+                        <div class="left-actions">
+                            <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
+                            <button class="action-btn comment-btn"><i class="far fa-comment"></i></button>
+                            <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                        <i class="far fa-bookmark save-btn"></i>
+                    </div>
+                    <div class="post-details">
+                        <span class="likes-count">8,542 likes</span>
+                        <p class="caption"><strong>Bruce Wayne</strong> Gotham is under my watch. Sector 4 clear.
+                            #Justice #TheKnight</p>
+                        <span class="timestamp">12 MINUTES AGO</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation for Mobile -->
+        <div class="bottom-nav">
+            <i class="fas fa-home nav-btn active"></i>
+            <i class="fas fa-search nav-btn"></i>
+            <i class="fas fa-plus-square nav-btn" id="mobile-create-post"></i>
+            <i class="fas fa-heart nav-btn"></i>
+            <div class="user-profile-mini nav-btn"></div>
+        </div>
+    </div>
+
+    <!-- Modals & Overlays -->
+    <div id="bat-animation-container"></div>
+
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="bat-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>INTEL UPLOAD</h2>
+                <i class="fas fa-times close-modal"></i>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Select Evidence to Post</p>
+                </div>
+                <div class="filter-section">
+                    <p>Bat-Filters:</p>
+                    <div class="filters-grid">
+                        <div class="filter-opt">Nocturnal</div>
+                        <div class="filter-opt">Shadow</div>
+                        <div class="filter-opt">Detective</div>
+                    </div>
+                </div>
+                <textarea placeholder="Enter coded caption..."></textarea>
+                <button class="bat-btn">TRANSMIT</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
