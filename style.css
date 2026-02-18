@@ -175,18 +175,23 @@ body {
     width: 24px;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
 .icon-circle {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-tactical);
     color: var(--text-pure);
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-left: 0.5rem;
     transition: all 0.2s;
 }
 
@@ -323,22 +328,29 @@ body {
 }
 
 .card-actions {
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .primary-actions {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.2rem;
+    align-items: center;
 }
 
 .action-trigger {
     background: none;
     border: none;
     color: var(--text-pure);
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     transition: transform 0.1s;
 }
 
@@ -374,13 +386,14 @@ body {
     bottom: 0;
     width: 100%;
     height: 70px;
-    background: rgba(10, 10, 12, 0.9);
+    background: rgba(10, 10, 12, 0.95);
     backdrop-filter: blur(25px);
     border-top: 1px solid var(--border-tactical);
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     align-items: center;
-    padding: 0 1rem;
+    justify-items: center;
+    z-index: 1000;
 }
 
 .nav-item {
