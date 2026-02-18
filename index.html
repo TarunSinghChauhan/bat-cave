@@ -4,43 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAT-CAVE OS | The Dark Knight Network</title>
+    <title>THE BATMAN | Vengeance OS</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700;900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <!-- Tactical Overlay Background -->
-    <div class="tactical-bg"></div>
+    <!-- The Batman Aesthetic Background -->
+    <div class="vengeance-bg"></div>
+    <div class="rain-overlay"></div>
     <div class="noise-overlay"></div>
 
-    <!-- Cinematic Splash Screen -->
+    <!-- Cinematic Splash Screen (Red Theme) -->
     <div id="splash-screen">
-        <div class="splash-vignette"></div>
+        <div class="splash-red-vignette"></div>
         <div id="splash-swarm-container"></div>
         <div class="splash-logo-container">
-            <div class="metallic-logo">
-                <img src="https://img.icons8.com/ios-filled/100/ffffff/batman-logo.png" alt="Bat Logo"
-                    class="bat-logo-img">
-            </div>
-            <h1 class="glitch-text" data-text="BAT-CAVE">BAT-CAVE</h1>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            <p class="status-msg">INITIALIZING SECURE LINK...</p>
+            <h1 class="movie-title-font">THE BATMAN</h1>
+            <div class="scanner-line"></div>
+            <p class="status-msg">UNLEASHING VENGEANCE...</p>
         </div>
     </div>
 
     <div class="app-shell">
-        <!-- Dashboard Header -->
+        <!-- Header -->
         <header class="main-header">
             <div class="header-content">
                 <div class="app-brand">
-                    <img src="https://img.icons8.com/ios-filled/50/FFD700/batman-logo.png" class="mini-logo">
-                    <span>OS v4.0</span>
+                    <span class="brand-text">VENGEANCE OS</span>
                 </div>
                 <div class="header-actions">
                     <button class="icon-circle nav-btn" data-page="activity"><i class="far fa-heart"></i></button>
@@ -50,44 +43,43 @@
         </header>
 
         <main class="page-container">
-            <!-- 1. INTEL FEED (HOME) -->
+            <!-- 1. FEED -->
             <section id="page-feed" class="page active">
                 <div class="intel-stories">
-                    <div class="story-hex" onclick="viewStory('WAYNE')">
-                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+                    <div class="story-circle" onclick="viewStory('WAYNE')">
+                        <div class="ring-red"><img src="https://i.pravatar.cc/150?u=bruce"></div>
                         <span>WAYNE</span>
                     </div>
-                    <div class="story-hex" onclick="viewStory('KYLE')">
-                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=selina"></div>
+                    <div class="story-circle" onclick="viewStory('KYLE')">
+                        <div class="ring-red"><img src="https://i.pravatar.cc/150?u=selina"></div>
                         <span>KYLE</span>
                     </div>
-                    <div class="story-hex" onclick="viewStory('ALFRED')">
-                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=alfred"></div>
+                    <div class="story-circle" onclick="viewStory('ALFRED')">
+                        <div class="ring-red"><img src="https://i.pravatar.cc/150?u=alfred"></div>
                         <span>ALFRED</span>
                     </div>
-                    <div class="story-hex" onclick="viewStory('GRAYSON')">
-                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=dick"></div>
-                        <span>GRAYSON</span>
+                    <div class="story-circle" onclick="viewStory('GORDON')">
+                        <div class="ring-red"><img src="https://i.pravatar.cc/150?u=gordon"></div>
+                        <span>GORDON</span>
                     </div>
                 </div>
 
                 <div class="feed-grid">
-                    <!-- Premium Narrative Card -->
                     <div class="intel-card">
                         <div class="card-header">
                             <div class="user-meta">
                                 <img src="https://i.pravatar.cc/150?u=bruce" class="avatar">
                                 <div class="user-info">
-                                    <span class="user-id">BRUCE_WAYNE</span>
-                                    <span class="location">SECTOR 7, GOTHAM</span>
+                                    <span class="user-id">Vengeance</span>
+                                    <span class="location">GOTHAM CITY</span>
                                 </div>
                             </div>
-                            <i class="fas fa-ellipsis-v"></i>
+                            <i class="fas fa-ellipsis-h"></i>
                         </div>
                         <div class="card-media">
                             <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000"
                                 alt="Post">
-                            <div class="media-overlay"></div>
+                            <div class="red-tint-overlay"></div>
                         </div>
                         <div class="card-actions">
                             <div class="primary-actions">
@@ -98,10 +90,10 @@
                             <button class="action-trigger save-btn"><i class="far fa-bookmark"></i></button>
                         </div>
                         <div class="card-data">
-                            <span class="metrics">8.5K SCANNED</span>
-                            <p class="intel-brief"><strong>THE KNIGHT:</strong> Watching the shadows. No movement
-                                detected in Sector 4. Encryption holding.</p>
-                            <span class="timestamp">02:14 AM</span>
+                            <span class="metrics">5,231 SCANNED</span>
+                            <p class="intel-brief">Fear is a tool. When that light hits the sky, it's not just a call.
+                                It's a warning. #TheBatman</p>
+                            <span class="timestamp">2 HOURS AGO</span>
                         </div>
                     </div>
                 </div>
@@ -110,16 +102,16 @@
             <!-- 2. SCANNER (EXPLORE) -->
             <section id="page-explore" class="page">
                 <div class="search-wrap">
-                    <div class="search-input-field">
-                        <i class="fas fa-crosshairs"></i>
-                        <input type="text" placeholder="SCAN GOTHAM DIRECTORY...">
+                    <div class="search-field">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="SEARCH CRIMINAL RECORDS...">
                     </div>
                 </div>
                 <div class="tactical-grid">
                     <div class="grid-cell"><img
                             src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400">
                     </div>
-                    <div class="grid-cell hex-cell"><img
+                    <div class="grid-cell"><img
                             src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
                     </div>
                     <div class="grid-cell"><img
@@ -128,41 +120,29 @@
                     <div class="grid-cell"><img
                             src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400">
                     </div>
-                    <div class="grid-cell"><img
-                            src="https://images.unsplash.com/photo-1496715976403-7e3b942f122b?auto=format&fit=crop&q=80&w=400">
-                    </div>
-                    <div class="grid-cell"><img
-                            src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=400">
-                    </div>
                 </div>
             </section>
 
-            <!-- 3. PROFILE (IDENTITY) -->
+            <!-- 3. IDENTITY (PROFILE) -->
             <section id="page-profile" class="page">
                 <div class="profile-dashboard">
                     <div class="identity-header">
-                        <div class="avatar-ring">
+                        <div class="avatar-ring-red">
                             <img src="https://i.pravatar.cc/150?u=bruce">
                         </div>
                         <div class="intel-stats">
-                            <div class="data-point"><span>42</span><label>UPLOADS</label></div>
-                            <div class="data-point"><span>1.2M</span><label>CONTACTS</label></div>
-                            <div class="data-point"><span>128</span><label>SECURED</label></div>
+                            <div class="data-point"><span>42</span><label>POSTS</label></div>
+                            <div class="data-point"><span>1.2M</span><label>FOLLOWERS</label></div>
+                            <div class="data-point"><span>128</span><label>FOLLOWING</label></div>
                         </div>
                     </div>
                     <div class="identity-info">
                         <h2>BRUCE WAYNE</h2>
-                        <div class="badge-row">
-                            <span class="tactical-badge">LEVEL 10</span>
-                            <span class="tactical-badge">KNIGHT_FALL</span>
-                        </div>
-                        <p class="identity-bio">Silent Guardian. Vigilant Watchman. <br>The Night belongs to me.</p>
-                        <button class="tactical-btn edit-btn">MODIFY IDENTITY</button>
+                        <span class="distressed-text">I AM VENGEANCE</span>
+                        <p class="bio">Two years of nights have turned me into a nocturnal animal. I'm starting to see
+                            things more clearly.</p>
+                        <button class="red-btn">EDIT BAT-PROFILE</button>
                     </div>
-                </div>
-                <div class="profile-tabs">
-                    <button class="tab-btn active"><i class="fas fa-th-large"></i></button>
-                    <button class="tab-btn"><i class="fas fa-shield-alt"></i></button>
                 </div>
                 <div class="tactical-grid">
                     <div class="grid-cell"><img
@@ -171,43 +151,26 @@
                     <div class="grid-cell"><img
                             src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
                     </div>
-                    <div class="grid-cell"><img
-                            src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=400">
-                    </div>
                 </div>
             </section>
         </main>
 
-        <!-- Tactical Bottom Navigation -->
+        <!-- Fixed Bottom Navigation -->
         <nav class="tactical-nav">
-            <div class="nav-item active" data-page="feed"><i class="fas fa-layer-group"></i></div>
-            <div class="nav-item" data-page="explore"><i class="fas fa-satellite"></i></div>
+            <div class="nav-item active" data-page="feed"><i class="fas fa-home"></i></div>
+            <div class="nav-item" data-page="explore"><i class="fas fa-search"></i></div>
             <div class="nav-item fab-center" data-page="add">
-                <div class="fab-circle"><i class="fas fa-mask"></i></div>
+                <div class="fab-circle"><i class="fas fa-plus"></i></div>
             </div>
-            <div class="nav-item" data-page="activity"><i class="fas fa-fingerprint"></i></div>
+            <div class="nav-item" data-page="activity"><i class="fas fa-heart"></i></div>
             <div class="nav-item" data-page="profile">
-                <div class="profile-hex-mini"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+                <div class="profile-mini"><img src="https://i.pravatar.cc/150?u=bruce"></div>
             </div>
         </nav>
     </div>
 
-    <!-- Black Batswarm Overlay -->
+    <!-- Black Bat Particles -->
     <div id="bat-swarm-host"></div>
-
-    <!-- Alert Modal -->
-    <div id="tactical-modal" class="modal">
-        <div class="modal-glass">
-            <div class="modal-header">
-                <h3 id="modal-title">SYSTEM ALERT</h3>
-                <div class="scan-line"></div>
-            </div>
-            <div class="modal-body">
-                <p id="modal-body">Encryption logic processing...</p>
-            </div>
-            <button class="modal-close-btn" onclick="closeTacticalModal()">ACKNOWLEDGE</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
