@@ -1,53 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const splashScreen = document.getElementById('splash-screen');
-    const particleContainer = document.getElementById('bat-particle-container');
-    const modal = document.getElementById('app-modal');
+    // 1. Elements
+    const splash = document.getElementById('splash-screen');
+    const swarmHost = document.getElementById('bat-swarm-host');
+    const pages = document.querySelectorAll('.page');
+    const modal = document.getElementById('tactical-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalBody = document.getElementById('modal-body');
-    const pages = document.querySelectorAll('.page');
-    const navItems = document.querySelectorAll('.nav-item, .nav-btn');
 
-    // 1. Splash Screen & Initialization
-    setTimeout(() => {
-        splashScreen.classList.add('fade-out');
-        setTimeout(() => splashScreen.remove(), 600);
-    }, 2500);
+    // 2. Cinematic Splash Swarm
+    function createSplashSwarm() {
+        if (!splash) return;
 
-    // 2. Navigation Control (Multi-page Logic)
-    function switchPage(pageId) {
-        if (!pageId || pageId === 'add') {
-            if (pageId === 'add') showModal('SECURE UPLOAD', 'Accessing Bat-Computer... Encryption protocol required to upload evidence.');
-            return;
+        for (let i = 0; i < 40; i++) {
+            setTimeout(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                spawnBlackBats(x, y, 1);
+            }, i * 40);
         }
 
-        pages.forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById(`page-${pageId}`);
-        if (targetPage) {
-            targetPage.classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        // Update active state in bottom nav
-        document.querySelectorAll('.nav-item').forEach(item => {
-            if (item.dataset.page === pageId) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
+        setTimeout(() => {
+            splash.classList.add('hidden');
+            setTimeout(() => splash.remove(), 1000);
+        }, 2800);
     }
+    createSplashSwarm();
 
-    // 3. Bat Particle Animation
-    function triggerBats(x, y) {
-        const count = 8;
+    // 3. Black Bat Spawn Engine
+    function spawnBlackBats(x, y, count = 10) {
         for (let i = 0; i < count; i++) {
             const bat = document.createElement('div');
-            bat.className = 'bat-particle animate-bat';
+            bat.className = 'bat-particle anim-bat';
 
-            // Random flight path
-            const tx = (Math.random() - 0.5) * 400;
-            const ty = (Math.random() - 0.5) * 400 - 50;
-            const tr = (Math.random() - 0.5) * 720;
+            // Random direction and intensity (Black color inherited from SVG fill in CSS)
+            const tx = (Math.random() - 0.5) * 600;
+            const ty = (Math.random() - 0.5) * 600 - 100;
+            const tr = (Math.random() - 0.5) * 1080;
 
             bat.style.setProperty('--tx', `${tx}px`);
             bat.style.setProperty('--ty', `${ty}px`);
@@ -56,78 +44,91 @@ document.addEventListener('DOMContentLoaded', () => {
             bat.style.left = `${x}px`;
             bat.style.top = `${y}px`;
 
-            particleContainer.appendChild(bat);
-            setTimeout(() => bat.remove(), 1000);
+            swarmHost.appendChild(bat);
+            setTimeout(() => bat.remove(), 800);
         }
     }
 
-    // 4. Global Click Listener for Buttons
-    document.addEventListener('click', (e) => {
-        const target = e.target.closest('.nav-item, .nav-btn, .action-btn, .edit-btn, .story-item');
-        if (!target) return;
-
-        // Visual feedback
-        triggerBats(e.clientX, e.clientY);
-
-        // Handle navigation
-        if (target.dataset.page) {
-            switchPage(target.dataset.page);
+    // 4. Tactical Navigation Controller
+    function navigate(pageId) {
+        if (pageId === 'add') {
+            showTacticalModal('INTEL UPLOAD', 'Unauthorized access to Sector 7. Evidence upload requires Wayne Enterprises decryption keys.');
+            return;
         }
 
-        // Handle Likes
-        if (target.classList.contains('like-btn')) {
-            const isLiked = target.classList.toggle('fas');
-            target.classList.toggle('far');
-            target.classList.toggle('liked');
+        pages.forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(`page-${pageId}`);
+        if (target) {
+            target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
 
-            const card = target.closest('.post-card');
-            const likesCount = card.querySelector('.likes-count');
-            let count = parseInt(likesCount.innerText.replace(/,/g, ''));
+        // Sync Nav Icons
+        document.querySelectorAll('.nav-item').forEach(item => {
+            if (item.dataset.page === pageId) item.classList.add('active');
+            else item.classList.remove('active');
+        });
+    }
 
-            if (isLiked) {
-                likesCount.innerText = (count + 1).toLocaleString() + ' likes';
-                target.style.transform = 'scale(1.3)';
-                setTimeout(() => target.style.transform = '', 200);
+    // 5. Global Tactical Click Handler
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.nav-item, .nav-btn, .action-trigger, .hex-border, .tactical-btn');
+        if (!trigger) return;
+
+        // Visual Swarm Feedback (BLACK BATS)
+        spawnBlackBats(e.clientX, e.clientY, 6);
+
+        // Routing
+        if (trigger.dataset.page) {
+            navigate(trigger.dataset.page);
+        }
+
+        // Logic for specific triggers
+        if (trigger.classList.contains('like-btn')) {
+            const icon = trigger.querySelector('i');
+            const card = trigger.closest('.intel-card');
+            const metrics = card.querySelector('.metrics');
+            let val = parseFloat(metrics.innerText);
+
+            if (icon.classList.contains('far')) {
+                icon.className = 'fas fa-heart liked';
+                metrics.innerText = (val + 0.1).toFixed(1) + 'K SCANNED';
+                trigger.style.transform = 'scale(1.4)';
+                setTimeout(() => trigger.style.transform = '', 150);
             } else {
-                likesCount.innerText = (count - 1).toLocaleString() + ' likes';
+                icon.className = 'far fa-heart';
+                metrics.innerText = (val - 0.1).toFixed(1) + 'K SCANNED';
             }
         }
 
-        // Handle Save
-        if (target.classList.contains('save-btn')) {
-            target.classList.toggle('fas');
-            target.classList.toggle('far');
+        if (trigger.classList.contains('save-btn')) {
+            const icon = trigger.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
         }
 
-        // Generic interactions
-        if (target.classList.contains('comment-btn')) {
-            showModal('COMMS', 'Securing line... Sector 7 is quiet tonight.');
-        }
-
-        if (target.classList.contains('edit-btn')) {
-            showModal('ENCRYPTION', 'Identity verification required. Access denied by Oracle.');
+        if (trigger.classList.contains('comment-btn')) {
+            showTacticalModal('SECURE COMMS', 'Channel encrypted. Oracle is currently off-grid. Leave a message after the pulse.');
         }
     });
 
-    // 5. Modal Logic
-    window.showModal = (title, body) => {
+    // 6. UI Utils
+    window.showTacticalModal = (title, body) => {
         modalTitle.innerText = title;
         modalBody.innerText = body;
-        modal.classList.add('active');
+        modal.classList.add('visible');
     };
 
-    window.closeModal = () => {
-        modal.classList.remove('active');
+    window.closeTacticalModal = () => {
+        modal.classList.remove('visible');
     };
 
-    window.viewStory = (name) => {
-        showModal('LIVE INTEL', `Establishing secure link to ${name}'s location...`);
+    window.viewStory = (user) => {
+        showTacticalModal('INTEL UPDATE', `Accessing live thermal stream from ${user}'s current position... [ENCRYPTED]`);
     };
 
-    // Close modal on outside click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    // Outside click close
+    modal.onclick = (e) => { if (e.target === modal) closeTacticalModal(); };
 
-    console.log('BAT-CAVE OS v2.0 Initialized.');
+    console.log('--- BAT-CAVE OS v4.0 ONLINE ---');
 });

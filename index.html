@@ -4,164 +4,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAT-CAVE | Gotham's Network</title>
+    <title>BAT-CAVE OS | The Dark Knight Network</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <!-- Splash Screen -->
+    <!-- Tactical Overlay Background -->
+    <div class="tactical-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Cinematic Splash Screen -->
     <div id="splash-screen">
-        <div id="splash-bats-container"></div>
-        <div class="splash-content">
-            <div class="bat-logo-glow">
-                <svg viewBox="0 0 512 512" width="100" height="100">
-                    <path fill="#FFD700"
-                        d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
-                </svg>
+        <div class="splash-vignette"></div>
+        <div id="splash-swarm-container"></div>
+        <div class="splash-logo-container">
+            <div class="metallic-logo">
+                <img src="https://img.icons8.com/ios-filled/100/ffffff/batman-logo.png" alt="Bat Logo"
+                    class="bat-logo-img">
             </div>
-            <h1 class="splash-title">BAT-CAVE</h1>
+            <h1 class="glitch-text" data-text="BAT-CAVE">BAT-CAVE</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="status-msg">INITIALIZING SECURE LINK...</p>
         </div>
     </div>
 
-    <div class="app-container">
-        <!-- Top Navbar -->
-        <nav class="navbar">
-            <div class="nav-content">
-                <div class="logo">
-                    <svg viewBox="0 0 512 512" width="28" height="28" style="margin-right: 8px;">
-                        <path fill="#FFD700"
-                            d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
-                    </svg>
-                    <span>BAT-CAVE</span>
+    <div class="app-shell">
+        <!-- Dashboard Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="app-brand">
+                    <img src="https://img.icons8.com/ios-filled/50/FFD700/batman-logo.png" class="mini-logo">
+                    <span>OS v4.0</span>
                 </div>
-                <div class="nav-icons-top">
-                    <i class="far fa-heart nav-btn" data-page="activity"></i>
-                    <i class="far fa-paper-plane nav-btn" data-page="messages"></i>
+                <div class="header-actions">
+                    <button class="icon-circle nav-btn" data-page="activity"><i class="far fa-heart"></i></button>
+                    <button class="icon-circle nav-btn" data-page="messages"><i class="far fa-paper-plane"></i></button>
                 </div>
             </div>
-        </nav>
+        </header>
 
-        <!-- Pages -->
-        <!-- 1. FEED PAGE -->
-        <section id="page-feed" class="page active">
-            <div class="stories-scroll">
-                <div class="story-item" onclick="viewStory('Bruce')">
-                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=bruce"></div>
-                    <span>Your Story</span>
+        <main class="page-container">
+            <!-- 1. INTEL FEED (HOME) -->
+            <section id="page-feed" class="page active">
+                <div class="intel-stories">
+                    <div class="story-hex" onclick="viewStory('WAYNE')">
+                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+                        <span>WAYNE</span>
+                    </div>
+                    <div class="story-hex" onclick="viewStory('KYLE')">
+                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=selina"></div>
+                        <span>KYLE</span>
+                    </div>
+                    <div class="story-hex" onclick="viewStory('ALFRED')">
+                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=alfred"></div>
+                        <span>ALFRED</span>
+                    </div>
+                    <div class="story-hex" onclick="viewStory('GRAYSON')">
+                        <div class="hex-border"><img src="https://i.pravatar.cc/150?u=dick"></div>
+                        <span>GRAYSON</span>
+                    </div>
                 </div>
-                <div class="story-item" onclick="viewStory('Selina')">
-                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=selina"></div>
-                    <span>Selina</span>
-                </div>
-                <div class="story-item" onclick="viewStory('Alfred')">
-                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=alfred"></div>
-                    <span>Alfred</span>
-                </div>
-                <div class="story-item" onclick="viewStory('Diana')">
-                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=diana"></div>
-                    <span>Diana</span>
-                </div>
-            </div>
 
-            <div class="feed-container">
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-user">
+                <div class="feed-grid">
+                    <!-- Premium Narrative Card -->
+                    <div class="intel-card">
+                        <div class="card-header">
+                            <div class="user-meta">
+                                <img src="https://i.pravatar.cc/150?u=bruce" class="avatar">
+                                <div class="user-info">
+                                    <span class="user-id">BRUCE_WAYNE</span>
+                                    <span class="location">SECTOR 7, GOTHAM</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="card-media">
+                            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000"
+                                alt="Post">
+                            <div class="media-overlay"></div>
+                        </div>
+                        <div class="card-actions">
+                            <div class="primary-actions">
+                                <button class="action-trigger like-btn"><i class="far fa-heart"></i></button>
+                                <button class="action-trigger comment-btn"><i class="far fa-comment"></i></button>
+                                <button class="action-trigger share-btn"><i class="far fa-paper-plane"></i></button>
+                            </div>
+                            <button class="action-trigger save-btn"><i class="far fa-bookmark"></i></button>
+                        </div>
+                        <div class="card-data">
+                            <span class="metrics">8.5K SCANNED</span>
+                            <p class="intel-brief"><strong>THE KNIGHT:</strong> Watching the shadows. No movement
+                                detected in Sector 4. Encryption holding.</p>
+                            <span class="timestamp">02:14 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. SCANNER (EXPLORE) -->
+            <section id="page-explore" class="page">
+                <div class="search-wrap">
+                    <div class="search-input-field">
+                        <i class="fas fa-crosshairs"></i>
+                        <input type="text" placeholder="SCAN GOTHAM DIRECTORY...">
+                    </div>
+                </div>
+                <div class="tactical-grid">
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell hex-cell"><img
+                            src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1496715976403-7e3b942f122b?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PROFILE (IDENTITY) -->
+            <section id="page-profile" class="page">
+                <div class="profile-dashboard">
+                    <div class="identity-header">
+                        <div class="avatar-ring">
                             <img src="https://i.pravatar.cc/150?u=bruce">
-                            <span class="user-name">bruce_wayne <i class="fas fa-check-circle verified"></i></span>
                         </div>
-                        <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                    <div class="post-image">
-                        <img
-                            src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000">
-                    </div>
-                    <div class="post-actions">
-                        <div class="left-actions">
-                            <i class="far fa-heart action-btn like-btn"></i>
-                            <i class="far fa-comment action-btn"></i>
-                            <i class="far fa-paper-plane action-btn"></i>
+                        <div class="intel-stats">
+                            <div class="data-point"><span>42</span><label>UPLOADS</label></div>
+                            <div class="data-point"><span>1.2M</span><label>CONTACTS</label></div>
+                            <div class="data-point"><span>128</span><label>SECURED</label></div>
                         </div>
-                        <i class="far fa-bookmark action-btn save-btn"></i>
                     </div>
-                    <div class="post-info">
-                        <span class="likes-count">8,542 likes</span>
-                        <p><strong>bruce_wayne</strong> Monitoring the sectors. #Gotham #NightWatch</p>
-                        <span class="time">12 MINUTES AGO</span>
+                    <div class="identity-info">
+                        <h2>BRUCE WAYNE</h2>
+                        <div class="badge-row">
+                            <span class="tactical-badge">LEVEL 10</span>
+                            <span class="tactical-badge">KNIGHT_FALL</span>
+                        </div>
+                        <p class="identity-bio">Silent Guardian. Vigilant Watchman. <br>The Night belongs to me.</p>
+                        <button class="tactical-btn edit-btn">MODIFY IDENTITY</button>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- 2. EXPLORE PAGE -->
-        <section id="page-explore" class="page">
-            <div class="search-container">
-                <div class="search-input">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search Gotham...">
+                <div class="profile-tabs">
+                    <button class="tab-btn active"><i class="fas fa-th-large"></i></button>
+                    <button class="tab-btn"><i class="fas fa-shield-alt"></i></button>
                 </div>
-            </div>
-            <div class="explore-grid">
-                <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1496715976403-7e3b942f122b?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=300">
-            </div>
-        </section>
-
-        <!-- 3. PROFILE PAGE -->
-        <section id="page-profile" class="page">
-            <div class="profile-header">
-                <div class="profile-pic">
-                    <img src="https://i.pravatar.cc/150?u=bruce">
+                <div class="tactical-grid">
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
+                    </div>
+                    <div class="grid-cell"><img
+                            src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=400">
+                    </div>
                 </div>
-                <div class="profile-stats">
-                    <div class="stat-item"><strong>42</strong><span>Posts</span></div>
-                    <div class="stat-item"><strong>1.2M</strong><span>Followers</span></div>
-                    <div class="stat-item"><strong>128</strong><span>Following</span></div>
-                </div>
-            </div>
-            <div class="profile-info">
-                <span class="display-name">Bruce Wayne</span>
-                <p class="bio">I am Vengeance. I am the Night. <br> Gotham City's Guardian.</p>
-                <button class="edit-btn">Edit Bat-Profile</button>
-            </div>
-            <div class="profile-tabs">
-                <i class="fas fa-th active"></i>
-                <i class="far fa-id-badge"></i>
-            </div>
-            <div class="explore-grid">
-                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=300">
-                <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=300">
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <div class="nav-item active" data-page="feed"><i class="fas fa-home"></i></div>
-            <div class="nav-item" data-page="explore"><i class="fas fa-search"></i></div>
-            <div class="nav-item" data-page="add"><i class="far fa-plus-square"></i></div>
-            <div class="nav-item" data-page="activity"><i class="far fa-heart"></i></div>
+        <!-- Tactical Bottom Navigation -->
+        <nav class="tactical-nav">
+            <div class="nav-item active" data-page="feed"><i class="fas fa-layer-group"></i></div>
+            <div class="nav-item" data-page="explore"><i class="fas fa-satellite"></i></div>
+            <div class="nav-item fab-center" data-page="add">
+                <div class="fab-circle"><i class="fas fa-mask"></i></div>
+            </div>
+            <div class="nav-item" data-page="activity"><i class="fas fa-fingerprint"></i></div>
             <div class="nav-item" data-page="profile">
-                <div class="mini-profile"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+                <div class="profile-hex-mini"><img src="https://i.pravatar.cc/150?u=bruce"></div>
             </div>
         </nav>
     </div>
 
-    <!-- Bat Animation Overlay -->
-    <div id="bat-particle-container"></div>
+    <!-- Black Batswarm Overlay -->
+    <div id="bat-swarm-host"></div>
 
-    <!-- Generic Modal -->
-    <div id="app-modal" class="modal">
-        <div class="modal-content">
-            <h2 id="modal-title">MODAL</h2>
-            <p id="modal-body">Transmission pending...</p>
-            <button onclick="closeModal()" class="bat-btn">CLOSE</button>
+    <!-- Alert Modal -->
+    <div id="tactical-modal" class="modal">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <h3 id="modal-title">SYSTEM ALERT</h3>
+                <div class="scan-line"></div>
+            </div>
+            <div class="modal-body">
+                <p id="modal-body">Encryption logic processing...</p>
+            </div>
+            <button class="modal-close-btn" onclick="closeTacticalModal()">ACKNOWLEDGE</button>
         </div>
     </div>
 
