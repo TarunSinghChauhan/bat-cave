@@ -4,149 +4,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAT-CAVE | Gotham's Private Network</title>
+    <title>BAT-CAVE | Gotham's Network</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <div class="splash-bats" id="splash-bats-container"></div>
+        <div id="splash-bats-container"></div>
         <div class="splash-content">
-            <div class="bat-logo-large">
-                <svg viewBox="0 0 512 512" width="120" height="120">
+            <div class="bat-logo-glow">
+                <svg viewBox="0 0 512 512" width="100" height="100">
                     <path fill="#FFD700"
                         d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
                 </svg>
             </div>
-            <h1 class="logo-text">BAT-CAVE</h1>
+            <h1 class="splash-title">BAT-CAVE</h1>
         </div>
     </div>
 
     <div class="app-container">
-        <!-- Navigation Bar -->
+        <!-- Top Navbar -->
         <nav class="navbar">
             <div class="nav-content">
                 <div class="logo">
-                    <svg viewBox="0 0 512 512" width="30" height="30" style="margin-right: 8px;">
+                    <svg viewBox="0 0 512 512" width="28" height="28" style="margin-right: 8px;">
                         <path fill="#FFD700"
                             d="M512 256s-80 0-112 40-48 72-48 72-16-48-80-48-96 0-96 0-16 48-80 48-80-32-80-72-80-40-80-40 80 0 112-40 48-72 48-72 16 48 80 48 96 0 96 0 16-48 80-48 80 32 80 72 80 40 80 40z" />
                     </svg>
                     <span>BAT-CAVE</span>
                 </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Scan for Citizens...">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="nav-icons">
-                    <i class="fas fa-home-alt nav-btn active" title="Home"></i>
-                    <i class="fas fa-paper-plane nav-btn" title="Messages"></i>
-                    <i class="fas fa-plus-square nav-btn" id="create-post-btn" title="Post Image"></i>
-                    <i class="fas fa-bell nav-btn" title="Notifications"></i>
-                    <div class="user-profile-icon nav-btn" title="Profile"></div>
+                <div class="nav-icons-top">
+                    <i class="far fa-heart nav-btn" data-page="activity"></i>
+                    <i class="far fa-paper-plane nav-btn" data-page="messages"></i>
                 </div>
             </div>
         </nav>
 
-        <main class="main-content">
-            <!-- Stories Section -->
-            <div class="stories-container">
-                <!-- Circular story items -->
-                <div class="story-item clickable">
-                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=bruce" alt="Bruce"></div>
-                    <span>Bruce</span>
+        <!-- Pages -->
+        <!-- 1. FEED PAGE -->
+        <section id="page-feed" class="page active">
+            <div class="stories-scroll">
+                <div class="story-item" onclick="viewStory('Bruce')">
+                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+                    <span>Your Story</span>
                 </div>
-                <div class="story-item clickable">
-                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=diana" alt="Diana"></div>
-                    <span>Diana</span>
-                </div>
-                <div class="story-item clickable">
-                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=clark" alt="Clark"></div>
-                    <span>Clark</span>
-                </div>
-                <div class="story-item clickable">
-                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=selina" alt="Selina"></div>
+                <div class="story-item" onclick="viewStory('Selina')">
+                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=selina"></div>
                     <span>Selina</span>
                 </div>
-                <div class="story-item clickable">
-                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=alfred" alt="Alfred"></div>
+                <div class="story-item" onclick="viewStory('Alfred')">
+                    <div class="story-ring"><img src="https://i.pravatar.cc/150?u=alfred"></div>
                     <span>Alfred</span>
+                </div>
+                <div class="story-item" onclick="viewStory('Diana')">
+                    <div class="story-ring active"><img src="https://i.pravatar.cc/150?u=diana"></div>
+                    <span>Diana</span>
                 </div>
             </div>
 
-            <!-- Feed Section -->
-            <div class="feed" id="main-feed">
-                <!-- Posts will be dynamically generated or hardcoded for now -->
+            <div class="feed-container">
                 <div class="post-card">
                     <div class="post-header">
                         <div class="post-user">
-                            <img src="https://i.pravatar.cc/150?u=bruce" alt="User">
-                            <span class="username">Bruce Wayne <i class="fas fa-shield-alt verified"></i></span>
+                            <img src="https://i.pravatar.cc/150?u=bruce">
+                            <span class="user-name">bruce_wayne <i class="fas fa-check-circle verified"></i></span>
                         </div>
                         <i class="fas fa-ellipsis-h"></i>
                     </div>
                     <div class="post-image">
-                        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000"
-                            alt="Gotham">
+                        <img
+                            src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1000">
                     </div>
                     <div class="post-actions">
                         <div class="left-actions">
-                            <button class="action-btn like-btn"><i class="far fa-heart"></i></button>
-                            <button class="action-btn comment-btn"><i class="far fa-comment"></i></button>
-                            <button class="action-btn share-btn"><i class="far fa-paper-plane"></i></button>
+                            <i class="far fa-heart action-btn like-btn"></i>
+                            <i class="far fa-comment action-btn"></i>
+                            <i class="far fa-paper-plane action-btn"></i>
                         </div>
-                        <i class="far fa-bookmark save-btn"></i>
+                        <i class="far fa-bookmark action-btn save-btn"></i>
                     </div>
-                    <div class="post-details">
+                    <div class="post-info">
                         <span class="likes-count">8,542 likes</span>
-                        <p class="caption"><strong>Bruce Wayne</strong> Gotham is under my watch. Sector 4 clear.
-                            #Justice #TheKnight</p>
-                        <span class="timestamp">12 MINUTES AGO</span>
+                        <p><strong>bruce_wayne</strong> Monitoring the sectors. #Gotham #NightWatch</p>
+                        <span class="time">12 MINUTES AGO</span>
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
 
-        <!-- Bottom Navigation for Mobile -->
-        <div class="bottom-nav">
-            <i class="fas fa-home nav-btn active"></i>
-            <i class="fas fa-search nav-btn"></i>
-            <i class="fas fa-plus-square nav-btn" id="mobile-create-post"></i>
-            <i class="fas fa-heart nav-btn"></i>
-            <div class="user-profile-mini nav-btn"></div>
-        </div>
+        <!-- 2. EXPLORE PAGE -->
+        <section id="page-explore" class="page">
+            <div class="search-container">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search Gotham...">
+                </div>
+            </div>
+            <div class="explore-grid">
+                <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1496715976403-7e3b942f122b?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=300">
+            </div>
+        </section>
+
+        <!-- 3. PROFILE PAGE -->
+        <section id="page-profile" class="page">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img src="https://i.pravatar.cc/150?u=bruce">
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item"><strong>42</strong><span>Posts</span></div>
+                    <div class="stat-item"><strong>1.2M</strong><span>Followers</span></div>
+                    <div class="stat-item"><strong>128</strong><span>Following</span></div>
+                </div>
+            </div>
+            <div class="profile-info">
+                <span class="display-name">Bruce Wayne</span>
+                <p class="bio">I am Vengeance. I am the Night. <br> Gotham City's Guardian.</p>
+                <button class="edit-btn">Edit Bat-Profile</button>
+            </div>
+            <div class="profile-tabs">
+                <i class="fas fa-th active"></i>
+                <i class="far fa-id-badge"></i>
+            </div>
+            <div class="explore-grid">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=300">
+                <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=300">
+            </div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="feed"><i class="fas fa-home"></i></div>
+            <div class="nav-item" data-page="explore"><i class="fas fa-search"></i></div>
+            <div class="nav-item" data-page="add"><i class="far fa-plus-square"></i></div>
+            <div class="nav-item" data-page="activity"><i class="far fa-heart"></i></div>
+            <div class="nav-item" data-page="profile">
+                <div class="mini-profile"><img src="https://i.pravatar.cc/150?u=bruce"></div>
+            </div>
+        </nav>
     </div>
 
-    <!-- Modals & Overlays -->
-    <div id="bat-animation-container"></div>
+    <!-- Bat Animation Overlay -->
+    <div id="bat-particle-container"></div>
 
-    <!-- Create Post Modal -->
-    <div id="create-post-modal" class="bat-modal">
+    <!-- Generic Modal -->
+    <div id="app-modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>INTEL UPLOAD</h2>
-                <i class="fas fa-times close-modal"></i>
-            </div>
-            <div class="modal-body">
-                <div class="upload-area">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Select Evidence to Post</p>
-                </div>
-                <div class="filter-section">
-                    <p>Bat-Filters:</p>
-                    <div class="filters-grid">
-                        <div class="filter-opt">Nocturnal</div>
-                        <div class="filter-opt">Shadow</div>
-                        <div class="filter-opt">Detective</div>
-                    </div>
-                </div>
-                <textarea placeholder="Enter coded caption..."></textarea>
-                <button class="bat-btn">TRANSMIT</button>
-            </div>
+            <h2 id="modal-title">MODAL</h2>
+            <p id="modal-body">Transmission pending...</p>
+            <button onclick="closeModal()" class="bat-btn">CLOSE</button>
         </div>
     </div>
 
