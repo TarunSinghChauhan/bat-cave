@@ -159,25 +159,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('.search-box input');
     const exploreGrid = document.querySelector('#page-explore .intel-grid');
     const uploadInput = document.getElementById('bat-upload-input');
+    const filterChips = document.querySelectorAll('.filter-chip');
     const originalExplore = exploreGrid ? exploreGrid.innerHTML : '';
+
+    const intelCollections = {
+        all: originalExplore,
+        cars: `
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1542362567-b052d022df42?auto=format&fit=crop&q=80&w=400">
+        `,
+        threats: `
+            <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=400">
+        `,
+        gotham: `
+            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=400">
+            <img src="https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=400">
+        `
+    };
+
+    function updateIntelGrid(category) {
+        if (!exploreGrid) return;
+        exploreGrid.innerHTML = intelCollections[category] || intelCollections.all;
+
+        filterChips.forEach(c => {
+            if (c.dataset.filter === category) c.classList.add('active');
+            else c.classList.remove('active');
+        });
+    }
 
     if (searchInput && exploreGrid) {
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
-            if (val.includes('car')) {
-                exploreGrid.innerHTML = `
-                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400">
-                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=400">
-                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400">
-                    <img src="https://images.unsplash.com/photo-1542362567-b052d022df42?auto=format&fit=crop&q=80&w=400">
-                `;
-            } else if (val === '') {
-                exploreGrid.innerHTML = originalExplore;
-            }
+            if (val.includes('car')) updateIntelGrid('cars');
+            else if (val.includes('joker') || val.includes('threat')) updateIntelGrid('threats');
+            else if (val.includes('city') || val.includes('gotham')) updateIntelGrid('gotham');
+            else if (val === '') updateIntelGrid('all');
         });
     }
+
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => updateIntelGrid(chip.dataset.filter));
+    });
 
     if (uploadInput) {
         uploadInput.addEventListener('change', (e) => {
@@ -215,8 +250,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                     postContent.prepend(newPost);
-                    showModal('INTEL UPLOADED', 'Success. Encrypted image file has been added to the secure feed.');
+                    showModal('UPLINK SUCCESS', 'Local intel has been encrypted and integrated into the global feed. Identity masked.');
                     document.querySelector('.nav-item[data-page="feed"]').click();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
                 reader.readAsDataURL(file);
             }
