@@ -116,7 +116,30 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.viewStory = (name) => {
-        showModal('LIVE FEED', `Establishing secure uplink to Sector 7... Scanning for ${name}. [STABLE]`);
+        const storyImgWrap = document.getElementById('story-image-container');
+        const storyImg = document.getElementById('story-img');
+
+        // Reset
+        storyImgWrap.classList.add('hidden');
+        storyImg.src = '';
+
+        let msg = `Establishing secure uplink to Sector 7... Scanning for ${name}. [STABLE]`;
+        let imgUrl = '';
+
+        if (name === 'WAYNE') {
+            msg = "INTEL RETRIEVED: Wayne Manor secure. Thermal scans indicate no intruders.";
+            imgUrl = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000";
+        } else if (name === 'KYLE') {
+            msg = "INTEL RETRIEVED: Tactical asset 'Batmobile' located in lower parking level.";
+            imgUrl = "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=1000";
+        }
+
+        if (imgUrl) {
+            storyImg.src = imgUrl;
+            storyImgWrap.classList.remove('hidden');
+        }
+
+        showModal(name + ' INTEL', msg);
     };
 
     // Outside click
