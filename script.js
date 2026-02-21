@@ -43,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Visual Feedback
         spawnBlackBats(e.clientX, e.clientY, 8);
 
+        // Story Routing
+        if (trigger.dataset.story) {
+            viewStory(trigger.dataset.story);
+            return;
+        }
+
         // Routing Logic
         if (trigger.dataset.page) {
             const pageId = trigger.dataset.page;
@@ -106,6 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. UI Utilities
     window.showModal = (title, body) => {
+        const storyImgWrap = document.getElementById('story-image-container');
+        if (storyImgWrap) storyImgWrap.classList.add('hidden'); // Default hide
+
         modalTitle.innerText = title;
         modalBody.innerText = body;
         modal.classList.add('active');
@@ -119,10 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const storyImgWrap = document.getElementById('story-image-container');
         const storyImg = document.getElementById('story-img');
 
-        // Reset
-        storyImgWrap.classList.add('hidden');
-        storyImg.src = '';
-
         let msg = `Establishing secure uplink to Sector 7... Scanning for ${name}. [STABLE]`;
         let imgUrl = '';
 
@@ -132,14 +137,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (name === 'KYLE') {
             msg = "INTEL RETRIEVED: Tactical asset 'Batmobile' located in lower parking level.";
             imgUrl = "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=1000";
+        } else if (name === 'GORDON') {
+            msg = "INTEL RETRIEVED: Commissioner Gordon at GCPD. Bat-signal status: STANDBY.";
+            imgUrl = "https://images.unsplash.com/photo-1496715976403-7e3b942f122b?auto=format&fit=crop&q=80&w=1000";
+        } else if (name === 'ALFRED') {
+            msg = "INTEL RETRIEVED: Alfred in the Batcave. Medical supplies and tech updates ready.";
+            imgUrl = "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=1000";
         }
 
-        if (imgUrl) {
+        // Show modal first (which hides old image by default)
+        showModal(name + ' INTEL', msg);
+
+        // Show new image if it exists
+        if (imgUrl && storyImg && storyImgWrap) {
             storyImg.src = imgUrl;
             storyImgWrap.classList.remove('hidden');
         }
-
-        showModal(name + ' INTEL', msg);
     };
 
     // Outside click
