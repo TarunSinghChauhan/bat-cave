@@ -131,7 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let msg = `Establishing secure uplink to Sector 7... Scanning for ${name}. [STABLE]`;
         let imgUrl = '';
 
-        if (name === 'WAYNE') {
+        if (name === 'BRUCE') {
+            msg = "MISSION INTEL: Subject 'Bruce' is currently active in Sector 4. Vigilance required.";
+            imgUrl = "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=80&w=1000";
+        } else if (name === 'WAYNE') {
             msg = "INTEL RETRIEVED: Wayne Manor secure. Thermal scans indicate no intruders.";
             imgUrl = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000";
         } else if (name === 'KYLE') {
