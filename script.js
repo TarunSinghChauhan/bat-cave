@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const pageId = trigger.dataset.page;
 
             if (pageId === 'add') {
-                showModal('SECURE TRANSMISSION', 'Initializing link to Sector 4. Evidence upload requires Wayne Enterprises authorization.');
+                document.getElementById('bat-upload-input').click();
                 return;
             }
 
@@ -155,8 +155,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Outside click
-    modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+    // 6. Search & Upload Logic
+    const searchInput = document.querySelector('.search-box input');
+    const exploreGrid = document.querySelector('#page-explore .intel-grid');
+    const uploadInput = document.getElementById('bat-upload-input');
+    const originalExplore = exploreGrid ? exploreGrid.innerHTML : '';
+
+    if (searchInput && exploreGrid) {
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            if (val.includes('car')) {
+                exploreGrid.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=400">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400">
+                    <img src="https://images.unsplash.com/photo-1542362567-b052d022df42?auto=format&fit=crop&q=80&w=400">
+                `;
+            } else if (val === '') {
+                exploreGrid.innerHTML = originalExplore;
+            }
+        });
+    }
+
+    if (uploadInput) {
+        uploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const postContent = document.querySelector('.feed-content');
+                    const newPost = document.createElement('div');
+                    newPost.className = 'bat-card';
+                    newPost.innerHTML = `
+                        <div class="card-top">
+                            <div class="card-user">
+                                <img src="https://i.pravatar.cc/150?u=bruce">
+                                <span>YOU (ENCRYPTED)</span>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="card-media">
+                            <img src="${event.target.result}">
+                            <div class="red-distort"></div>
+                        </div>
+                        <div class="card-actions">
+                            <div class="left-btns">
+                                <i class="far fa-heart action-btn like-btn"></i>
+                                <i class="far fa-comment action-btn"></i>
+                                <i class="far fa-paper-plane action-btn"></i>
+                            </div>
+                            <i class="far fa-bookmark action-btn save-btn"></i>
+                        </div>
+                        <div class="card-info">
+                            <span class="like-metrics">0 SCANNED</span>
+                            <p><strong>YOU:</strong> Uploading local intel to Bat-Computer. #Vengeance</p>
+                            <span class="time-stamp">JUST NOW</span>
+                        </div>
+                    `;
+                    postContent.prepend(newPost);
+                    showModal('INTEL UPLOADED', 'Success. Encrypted image file has been added to the secure feed.');
+                    document.querySelector('.nav-item[data-page="feed"]').click();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
     console.log('--- BAT CAVE OS ONLINE ---');
 });
