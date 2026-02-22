@@ -83,19 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const icon = trigger;
             const card = trigger.closest('.bat-card');
             const metrics = card.querySelector('.like-metrics');
-            let count = parseInt(metrics.innerText.replace(/,/g, ''));
 
+            // Toggle Heart Visual
             if (icon.classList.contains('far')) {
-                icon.className = 'fas fa-heart action-btn';
-                icon.style.color = '#cc0000';
-                metrics.innerText = (count + 1).toLocaleString() + ' SCANNED';
-                trigger.style.transform = 'scale(1.4)';
-                setTimeout(() => trigger.style.transform = '', 150);
+                icon.className = 'fas fa-heart action-btn heart-active';
+                metrics.classList.add('revealed');
             } else {
                 icon.className = 'far fa-heart action-btn';
-                icon.style.color = '';
-                metrics.innerText = (count - 1).toLocaleString() + ' SCANNED';
+                metrics.classList.remove('revealed');
             }
+        }
+
+        if (trigger.classList.contains('fa-comment')) {
+            const username = trigger.closest('.bat-card').querySelector('.card-user span').innerText;
+            showModal('SECURE COMMS: ' + username,
+                'SCANNING RECENT TRANSMISSIONS...\n\n- Oracle: Intelligence received.\n- Nightwing: Perimeter secure.\n- Alfred: Master Wayne, ETA for patrol?\n\n[COMMUNICATION ENCRYPTED]');
+        }
+
+        if (trigger.classList.contains('fa-paper-plane')) {
+            const username = trigger.closest('.bat-card').querySelector('.card-user span').innerText;
+            showModal('TRANSMITTING INTEL', `Initializing encrypted downlink... Intel from ${username} has been shared with the local secure network. [STABLE]`);
         }
 
         if (trigger.classList.contains('save-btn')) {
@@ -206,10 +213,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput && exploreGrid) {
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
-            if (val.includes('car')) updateIntelGrid('cars');
-            else if (val.includes('joker') || val.includes('threat')) updateIntelGrid('threats');
-            else if (val.includes('city') || val.includes('gotham')) updateIntelGrid('gotham');
+            if (val.includes('car') || val.includes('mobile')) updateIntelGrid('cars');
+            else if (val.includes('joker') || val.includes('threat') || val.includes('clown')) updateIntelGrid('threats');
+            else if (val.includes('city') || val.includes('gotham') || val.includes('skyline')) updateIntelGrid('gotham');
+            else if (val.includes('manor') || val.includes('bruce') || val.includes('wayne')) updateIntelGrid('all');
             else if (val === '') updateIntelGrid('all');
+            else {
+                // If no match found, show scanning feedback
+                exploreGrid.innerHTML = `<div style="grid-column: 1/4; padding: 40px; text-align: center; color: var(--bat-red);">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND IN DIRECTORY</div>`;
+            }
         });
     }
 

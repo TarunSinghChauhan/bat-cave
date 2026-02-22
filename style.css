@@ -323,9 +323,40 @@ body {
 
 .like-metrics {
     font-weight: 900;
-    color: var(--bat-red);
-    font-size: 0.8rem;
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 900;
+    margin-bottom: 8px;
     letter-spacing: 1px;
+    color: var(--bat-red);
+    opacity: 0;
+    /* Hidden by default */
+    transform: translateY(5px);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.like-metrics.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.heart-active {
+    color: var(--bat-red) !important;
+    animation: heart-pop 0.4s ease;
+}
+
+@keyframes heart-pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
 }
 
 .card-info p {
