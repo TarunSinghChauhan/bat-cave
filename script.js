@@ -214,11 +214,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateIntelGrid(query) {
         if (!exploreGrid) return;
 
+        console.log(`[SYSTEM]: SWEEPING DIRECTORY FOR KEYWORD: "${query}"`);
+
+        // Add a scan pulse effect
+        exploreGrid.style.opacity = '0.3';
+        setTimeout(() => exploreGrid.style.opacity = '1', 150);
+
         const q = query.trim().toLowerCase();
+
+        // Universal matching logic
         const filtered = q === 'all' || q === ''
             ? intelDatabase
             : intelDatabase.filter(item => {
-                return item.tags.some(tag => tag.includes(q)) || (item.name && item.name.toLowerCase().includes(q));
+                const tagMatch = item.tags.some(tag => tag.toLowerCase().includes(q) || q.includes(tag.toLowerCase()));
+                const nameMatch = item.name && item.name.toLowerCase().includes(q);
+                return tagMatch || nameMatch;
             });
 
         if (filtered.length > 0) {
@@ -234,10 +244,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 }
-                return `<img src="${item.url}" alt="Intel">`;
+                return `<img src="${item.url}" alt="Intel" style="animation: fadeIn 0.5s ease;">`;
             }).join('');
         } else {
-            exploreGrid.innerHTML = `<div style="grid-column: 1/4; padding: 40px; text-align: center; color: var(--bat-red); border: 1px dashed var(--bat-red);">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND IN DIRECTORY</div>`;
+            exploreGrid.innerHTML = `
+                <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--bat-red); border: 2px dashed var(--bat-red); background: rgba(204,0,0,0.05);">
+                    <div style="font-weight: 900; font-size: 1.2rem; margin-bottom: 10px;">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND</div>
+                    <div style="font-size: 0.7rem; color: #666; font-family: 'Montserrat';">QUERY: "${q}" NOT FOUND IN DIRECTORY archives.v2.8.0</div>
+                </div>`;
         }
     }
 
@@ -296,5 +310,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    console.log('--- BAT CAVE OS ONLINE ---');
+    console.log('--- BAT CAVE OS v.2.8.0 ONLINE ---');
 });
