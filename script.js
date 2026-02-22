@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             exploreGrid.innerHTML = `
                 <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--bat-red); border: 2px dashed var(--bat-red); background: rgba(204,0,0,0.05);">
                     <div style="font-weight: 900; font-size: 1.2rem; margin-bottom: 10px;">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND</div>
-                    <div style="font-size: 0.7rem; color: #666; font-family: 'Montserrat';">QUERY: "${q}" NOT FOUND IN DIRECTORY archives.v2.8.0</div>
+                    <div style="font-size: 0.7rem; color: #666; font-family: 'Montserrat';">QUERY: "${q}" NOT FOUND IN DIRECTORY ARCHIVES</div>
                 </div>`;
         }
     }
@@ -310,5 +310,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    console.log('--- BAT CAVE OS v.2.8.0 ONLINE ---');
+    console.log('--- BAT CAVE OS ONLINE ---');
 });
