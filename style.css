@@ -651,3 +651,49 @@ body {
 .anim-bat {
     animation: flyAway 0.8s cubic-bezier(0.1, 0.9, 0.3, 1) forwards;
 }
+
+.comment-area {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.comment-input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.comment-input:focus {
+    border-color: var(--bat-red);
+    outline: none;
+}
+
+.comment-submit {
+    background: var(--bat-red);
+    color: #000;
+    border: none;
+    padding: 8px 15px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+}
+
+.comment-submit:hover {
+    background: #ff0000;
+}
+
+.comment-line {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+    border-left: 2px solid var(--bat-red);
+    padding-left: 8px;
+    color: var(--text-gray);
+    word-break: break-all;
+}
