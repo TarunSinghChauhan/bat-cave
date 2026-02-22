@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { type: 'personnel', name: 'THE JOKER', status: 'THREAT LEVEL: OMEGA', url: "https://i.pravatar.cc/150?u=joker", tags: ['joker', 'threat', 'clown', 'chaos', 'villain'] },
 
         // Vehicles
-        { type: 'intel', url: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400", tags: ['car', 'batmobile', 'vehicle', 'mobile', 'tactical'] },
-        { type: 'intel', url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400", tags: ['car', 'black', 'sport', 'stealth'] },
-        { type: 'intel', url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400", tags: ['car', 'engine', 'speed'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400", tags: ['car', 'batmobile', 'vehicle', 'mobile', 'tactical', 'bike', 'cycle', 'batpod'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400", tags: ['car', 'black', 'sport', 'stealth', 'bike'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1558981403-c5f97dbfb6c0?auto=format&fit=crop&q=80&w=400", tags: ['bike', 'motorcycle', 'cycle', 'batpod'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400", tags: ['car', 'engine', 'speed', 'mobile'] },
         { type: 'intel', url: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=400", tags: ['car', 'classic', 'luxury'] },
 
         // Gotham Locations
