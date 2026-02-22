@@ -200,7 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 6. Search & Upload Logic
-    const searchInput = document.querySelector('.search-box input');
+    const searchInput = document.getElementById('search-input-field');
+    const searchBtn = document.getElementById('search-trigger-btn');
+    const searchIcon = document.getElementById('search-trigger-icon');
     const exploreGrid = document.querySelector('#page-explore .intel-grid');
     const uploadInput = document.getElementById('bat-upload-input');
     const filterChips = document.querySelectorAll('.filter-chip');
@@ -208,26 +210,43 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateIntelGrid(query) {
         if (!exploreGrid) return;
 
-        const filtered = query === 'all' || query === ''
+        const q = query.trim().toLowerCase();
+        const filtered = q === 'all' || q === ''
             ? intelDatabase
-            : intelDatabase.filter(item => item.tags.some(tag => tag.includes(query.toLowerCase())));
+            : intelDatabase.filter(item => item.tags.some(tag => tag.includes(q)));
 
         if (filtered.length > 0) {
             exploreGrid.innerHTML = filtered.map(item => `<img src="${item.url}" alt="Intel">`).join('');
         } else {
-            exploreGrid.innerHTML = `<div style="grid-column: 1/4; padding: 40px; text-align: center; color: var(--bat-red);">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND</div>`;
+            exploreGrid.innerHTML = `<div style="grid-column: 1/4; padding: 40px; text-align: center; color: var(--bat-red); border: 1px dashed var(--bat-red);">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND IN DIRECTORY</div>`;
         }
     }
 
     if (searchInput) {
+        // Live search
         searchInput.addEventListener('input', (e) => updateIntelGrid(e.target.value));
+
+        // Enter key search
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') updateIntelGrid(searchInput.value);
+        });
+    }
+
+    if (searchBtn) {
+        searchBtn.addEventListener('click', () => updateIntelGrid(searchInput.value));
+    }
+
+    if (searchIcon) {
+        searchIcon.addEventListener('click', () => updateIntelGrid(searchInput.value));
     }
 
     filterChips.forEach(chip => {
         chip.addEventListener('click', () => {
             filterChips.forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
-            updateIntelGrid(chip.dataset.filter === 'all' ? '' : chip.dataset.filter);
+            const cat = chip.dataset.filter;
+            updateIntelGrid(cat === 'all' ? '' : cat);
+            if (searchInput) searchInput.value = ''; // Clear search when using chips
         });
     });
 
