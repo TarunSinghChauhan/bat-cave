@@ -10,15 +10,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Data
     const intelDatabase = [
-        { url: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400", tags: ['joker', 'threat', 'villain', 'clown'] },
-        { url: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400", tags: ['gotham', 'city', 'night', 'skyline'] },
-        { url: "https://images.unsplash.com/photo-1533972751724-9b3b0fb1accb?auto=format&fit=crop&q=80&w=400", tags: ['batman', 'bruce', 'vigilante'] },
-        { url: "https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=400", tags: ['gotham', 'castle', 'building', 'manor'] },
-        { url: "https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=400", tags: ['wayne', 'manor', 'house'] },
-        { url: "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400", tags: ['city', 'dark', 'gotham'] },
-        { url: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400", tags: ['car', 'batmobile', 'vehicle', 'mobile'] },
-        { url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400", tags: ['car', 'black', 'sport'] },
-        { url: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=80&w=400", tags: ['batman', 'armor', 'tactical'] }
+        // Personnel
+        { type: 'personnel', name: 'BRUCE WAYNE', status: 'ACTIVE', url: "https://i.pravatar.cc/150?u=bruce", tags: ['bruce', 'wayne', 'batman', 'vengeance', 'billionaire'] },
+        { type: 'personnel', name: 'SELINA KYLE', status: 'WANTED', url: "https://i.pravatar.cc/150?u=selina", tags: ['kyle', 'selina', 'catwoman', 'thief', 'cat'] },
+        { type: 'personnel', name: 'COMMISSIONER GORDON', status: 'SECURE', url: "https://i.pravatar.cc/150?u=gordon", tags: ['gordon', 'jim', 'gcpd', 'police'] },
+        { type: 'personnel', name: 'ALFRED PENNYWORTH', status: 'SECURE', url: "https://i.pravatar.cc/150?u=alfred", tags: ['alfred', 'butler', 'support', 'cave'] },
+        { type: 'personnel', name: 'THE JOKER', status: 'THREAT LEVEL: OMEGA', url: "https://i.pravatar.cc/150?u=joker", tags: ['joker', 'threat', 'clown', 'chaos', 'villain'] },
+
+        // Vehicles
+        { type: 'intel', url: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=400", tags: ['car', 'batmobile', 'vehicle', 'mobile', 'tactical'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=400", tags: ['car', 'black', 'sport', 'stealth'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400", tags: ['car', 'engine', 'speed'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=400", tags: ['car', 'classic', 'luxury'] },
+
+        // Gotham Locations
+        { type: 'intel', url: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=400", tags: ['gotham', 'city', 'night', 'skyline'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&q=80&w=400", tags: ['gotham', 'castle', 'building', 'manor', 'wayne'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1542125387-c71274d94f0a?auto=format&fit=crop&q=80&w=400", tags: ['wayne', 'manor', 'house', 'mansion'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&q=80&w=400", tags: ['city', 'dark', 'gotham', 'architecture'] },
+
+        // Misc/Threats
+        { type: 'intel', url: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400", tags: ['joker', 'chaos', 'green', 'smoke'] },
+        { type: 'intel', url: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=80&w=400", tags: ['batman', 'armor', 'tactical', 'suit'] }
     ];
 
     // Assign dynamic IDs to cards for comment tracking
@@ -52,21 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. Global Click Listener for App Persistence
+    // 4. Global Click Listener
     document.addEventListener('click', (e) => {
         const trigger = e.target.closest('.nav-item, .nav-btn, .action-btn, .action-cave-btn, .story-hex, .comment-submit');
         if (!trigger) return;
 
-        // Visual Feedback
         spawnBlackBats(e.clientX, e.clientY, 8);
 
-        // Story Routing
         if (trigger.dataset.story) {
             viewStory(trigger.dataset.story);
             return;
         }
 
-        // Routing Logic
         if (trigger.dataset.page) {
             const pageId = trigger.dataset.page;
             if (pageId === 'add') {
@@ -74,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             if (pageId === 'messages') {
-                showModal('ENCRYPTED COMMS', 'Opening encrypted frequency... No new messages from Justice League.');
+                showModal('ENCRYPTED COMMS', 'Opening encrypted frequency... No new messages.');
                 return;
             }
             pages.forEach(p => p.classList.remove('active'));
@@ -89,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Action Logic (Likes, etc.)
         if (trigger.classList.contains('like-btn')) {
             const icon = trigger;
             const card = trigger.closest('.bat-card');
@@ -107,9 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = trigger.closest('.bat-card');
             const postId = card.getAttribute('data-id');
             const username = card.querySelector('.card-user span').innerText;
-
             showModal('POST UPLINK: ' + username, 'Type your secure transmission below:');
-
             commentActionContainer.innerHTML = `
                 <div class="comment-area">
                     <input type="text" class="comment-input" placeholder="Enter intel..." id="modal-comment-input">
@@ -123,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const postId = trigger.getAttribute('data-post-id');
             const input = document.getElementById('modal-comment-input');
             const val = input.value.trim();
-
             if (val) {
                 const targetCard = document.querySelector(`.bat-card[data-id="${postId}"]`);
                 const infoArea = targetCard.querySelector('.card-info');
@@ -131,15 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 commentEl.className = 'comment-line';
                 commentEl.innerHTML = `<strong>YOU:</strong> ${val}`;
                 infoArea.appendChild(commentEl);
-
                 showModal('TRANSMISSION SUCCESS', 'Intel appended to post directory.');
-                commentActionContainer.classList.add('hidden');
             }
         }
 
         if (trigger.classList.contains('fa-paper-plane')) {
             const username = trigger.closest('.bat-card').querySelector('.card-user span').innerText;
-            showModal('TRANSMITTING INTEL', `Initializing encrypted downlink... Intel from ${username} has been shared. [STABLE]`);
+            showModal('TRANSMITTING INTEL', `Initializing encrypted downlink... Intel from ${username} has been shared.`);
         }
 
         if (trigger.classList.contains('save-btn')) {
@@ -159,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const storyImgWrap = document.getElementById('story-image-container');
         if (storyImgWrap) storyImgWrap.classList.add('hidden');
         commentActionContainer.classList.add('hidden');
-
         modalTitle.innerText = title;
         modalBody.innerText = body;
         modal.classList.add('active');
@@ -213,10 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = query.trim().toLowerCase();
         const filtered = q === 'all' || q === ''
             ? intelDatabase
-            : intelDatabase.filter(item => item.tags.some(tag => tag.includes(q)));
+            : intelDatabase.filter(item => {
+                return item.tags.some(tag => tag.includes(q)) || (item.name && item.name.toLowerCase().includes(q));
+            });
 
         if (filtered.length > 0) {
-            exploreGrid.innerHTML = filtered.map(item => `<img src="${item.url}" alt="Intel">`).join('');
+            exploreGrid.innerHTML = filtered.map(item => {
+                if (item.type === 'personnel') {
+                    return `
+                        <div class="search-person-card">
+                            <img src="${item.url}" alt="${item.name}">
+                            <div class="person-info">
+                                <span class="person-name">${item.name}</span>
+                                <span class="person-status">${item.status}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                return `<img src="${item.url}" alt="Intel">`;
+            }).join('');
         } else {
             exploreGrid.innerHTML = `<div style="grid-column: 1/4; padding: 40px; text-align: center; color: var(--bat-red); border: 1px dashed var(--bat-red);">[SCAN ERROR]: NO MATCHING SIGNATURES FOUND IN DIRECTORY</div>`;
         }
